@@ -1,0 +1,39 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+        <item
+            android:id="@+id/nav_history"
+            android:title="History"
+            android:icon="@drawable/history"/>
+
+        <item
+            android:id="@+id/nav_share"
+            android:title="Share This App"
+            android:icon="@drawable/share"/>
+
+        <item
+            android:id="@+id/nav_rate"
+            android:title="Rate This App"
+            android:icon="@drawable/rate"/>
+
+        <item
+            android:id="@+id/nav_feedback"
+            android:title="Feedback"
+            android:icon="@drawable/feedback"/>
+
+        <item
+            android:id="@+id/nav_privacy_policy"
+            android:title="Privacy Policy"
+            android:icon="@drawable/privacypolicy"/>
+        <item
+            android:id="@+id/nav_about"
+            android:title="About"
+            android:icon="@drawable/about"/>
+        <item
+            android:id="@+id/nav_switch"
+            app:actionLayout="@layout/switch_menu"
+            android:icon="@drawable/dark_mode"
+            android:title="Dark mode"/>
+
+    </group>
+</menu>

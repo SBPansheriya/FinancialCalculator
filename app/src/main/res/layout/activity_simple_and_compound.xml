@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".BankingCalculation.SimpleAndCompoundActivity">
+
+    <RelativeLayout
+        android:id="@+id/tbMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0D5B68"
+        android:gravity="center_vertical"
+        android:minHeight="?attr/actionBarSize"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="44dp"
+            android:layout_toEndOf="@+id/back"
+            android:fontFamily="@font/lexenddeca_bold"
+            android:gravity="center"
+            android:text="@string/simple_compound_interest"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@+id/tbMenu"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selected_categoryborder"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/year"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selected_category"
+            android:fontFamily="@font/lexenddeca_semibold"
+            android:gravity="center"
+            android:text="@string/year"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/lexenddeca_semibold"
+            android:gravity="center"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/title1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexenddeca_semibold"
+                android:gravity="center"
+                android:text="@string/simple"
+                android:textColor="@color/dark_blue"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/line"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="0dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/compound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexenddeca_semibold"
+                android:gravity="center"
+                android:text="@string/compound"
+                android:textColor="#4D000000"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/line1"
+                android:visibility="gone"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/title5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title1"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/lexenddeca_medium"
+            android:text="@string/interest_compounded"
+            android:textColor="@color/dark_blue"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/spinner_linear"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/border1">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:backgroundTint="@color/dark_blue"
+                android:baselineAligned="false"
+                android:dropDownWidth="200dp"
+                android:popupBackground="@drawable/spinner_pop_bg"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/principal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border1"
+            android:fontFamily="@font/lexenddeca_medium"
+            android:hint="@string/principal"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            android:textColor="@color/dark_blue"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/rate_per_year"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border1"
+            android:fontFamily="@font/lexenddeca_medium"
+            android:hint="@string/rate_per_year"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            android:textColor="@color/dark_blue"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/time_in_year"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border1"
+            android:fontFamily="@font/lexenddeca_medium"
+            android:hint="@string/time_in_year"
+            android:inputType="number"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            android:textColor="@color/dark_blue"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/start_date_selected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="10sp"
+                android:background="@drawable/border1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/start_date"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lexenddeca_medium"
+                    android:gravity="start|center"
+                    android:hint="@string/start_date"
+                    android:textColorHint="@color/hint_color"
+                    android:paddingStart="10dp"
+                    android:textColor="#91919F"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/calender"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/calender" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/end_date_selected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="10sp"
+                android:background="@drawable/border1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/end_date"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lexenddeca_medium"
+                    android:gravity="start|center"
+                    android:hint="@string/end_date"
+                    android:textColorHint="@color/hint_color"
+                    android:paddingStart="10dp"
+                    android:textColor="#91919F"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/calender1"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/calender" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/title7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title5"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="15dp">
+
+        <Button
+            android:id="@+id/calculate"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/border2"
+            android:fontFamily="@font/lexenddeca_medium"
+            android:text="@string/calculate"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:backgroundTint="@null" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="0dp" />
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/border3"
+            android:fontFamily="@font/lexenddeca_medium"
+            android:text="@string/reset"
+            android:textColor="@color/dark_blue"
+            android:textSize="12sp"
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@+id/title7"
+        android:layout_marginBottom="10sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        android:paddingVertical="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/si_ci_interest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10sp"
+                android:layout_toStartOf="@+id/si_ci_interest_value"
+                android:fontFamily="@font/lexenddeca_medium"
+                android:text="@string/simple_interest"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/si_ci_interest_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="10sp"
+                android:fontFamily="@font/lexenddeca_medium"
+                android:text="@string/_0_00"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10sp"
+                android:layout_toStartOf="@+id/principal_amount"
+                android:fontFamily="@font/lexenddeca_medium"
+                android:text="@string/principal_amount1"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/principal_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="10sp"
+                android:fontFamily="@font/lexenddeca_medium"
+                android:text="@string/_0_00"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10sp"
+                android:layout_toStartOf="@+id/investment_amount"
+                android:fontFamily="@font/lexenddeca_medium"
+                android:text="@string/total_amount"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/investment_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="10sp"
+                android:fontFamily="@font/lexenddeca_medium"
+                android:text="@string/_0_00"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

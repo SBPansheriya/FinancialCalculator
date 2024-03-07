@@ -1,0 +1,161 @@
+<resources>
+    <string name="app_name">Financial Calculator</string>
+    <string name="home">Home</string>
+    <string name="financial_calculator">Financial Calculator</string>
+    <string name="calculate_track_save">Calculate. Track. save</string>
+    <string name="emi_calculators">EMI Calculators</string>
+    <string name="todo">TODO</string>
+    <string name="loan_calculators">Loan Calculators</string>
+    <string name="banking_calculation">Banking Calculation</string>
+    <string name="mutual_funds_sip"><![CDATA[Mutual Funds & SIP]]></string>
+    <string name="gst_vat"><![CDATA[GST & VAT]]></string>
+    <string name="emi_calculator">EMI Calculator</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="reset">Reset</string>
+    <string name="calculate">Calculate</string>
+    <string name="principal_amount_20_00">Principal Amount 20.00%</string>
+    <string name="total_payment_80_00">Total payment 80.00%</string>
+    <string name="total_interest_amount">Total Interest Amount</string>
+    <string name="emi_monthly_payment">EMI (Monthly Payment)</string>
+    <string name="_0_00">0.00</string>
+    <string name="total_payment">Total Payment</string>
+    <string name="principal_interest">(Principal + Interest)</string>
+    <string name="principal_amount">Principal Amount *</string>
+    <string name="interest">Interest % *</string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
+    <string name="loan_tenure">Loan Tenure *</string>
+    <string name="total_principal">Total Principal</string>
+    <string name="enter_loan_tenure">Enter loan tenure</string>
+    <string name="enter_interest">Enter interest</string>
+    <string name="loan_amount_calculator">Loan Amount Calculator</string>
+    <string name="loan_tenure_calculator">Loan Tenure Calculator</string>
+    <string name="emi">EMI *</string>
+    <string name="emi_monthly_payment1">EMI (Monthly Payment) *</string>
+    <string name="loan_tenure1">Loan Tenure</string>
+    <string name="interest1">Interest</string>
+    <string name="compare_loan">Compare Loan</string>
+    <string name="loan_1">Loan 1</string>
+    <string name="loan_2">Loan 2</string>
+    <string name="emi1">EMI</string>
+    <string name="fd_calculator">FD Calculator</string>
+    <string name="month_year"><![CDATA[Month & year *]]></string>
+    <string name="date">Date</string>
+    <string name="investment_date">Investment Date *</string>
+    <string name="compounding_period">Compounding Period *</string>
+    <string name="maturity_value">Maturity Value</string>
+    <string name="_20_march_2023">20 March, 2023</string>
+    <string name="maturity_date">Maturity date</string>
+    <string name="total_interest">Total Interest</string>
+    <string name="investment_amount">Investment Amount</string>
+    <string name="max_50_per_annum">(max. 50% per annum)</string>
+    <string name="rate_of_interest">Rate of Interest % *</string>
+    <string name="multiplies_of_months">(multiplies of months)</string>
+    <string name="saving_term">Saving Term *</string>
+    <string name="rd_calculator">RD Calculator</string>
+    <string name="ppf_calculator">PPF Calculator</string>
+    <string name="multiplies_duration_years">Multiplies Duration (Years) *</string>
+    <string name="simple_compound_interest"><![CDATA[Simple & Compound Interest]]></string>
+    <string name="interest_compounded">Interest Compounded *</string>
+    <string name="principal">Principal</string>
+    <string name="simple_interest">Simple Interest</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="simple">Simple</string>
+    <string name="compound">Compound</string>
+    <string name="rate_per_year">Rate per year</string>
+    <string name="time_in_year">Time in year</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="expected_rate_of_interest">Expected Rate of Interest *</string>
+    <string name="investment_amount1">Investment Amount *</string>
+    <string name="total_investment_amount">Total Investment Amount</string>
+    <string name="total_interest_value">Total Interest Value</string>
+    <string name="swp_calculator">SWP Calculator</string>
+    <string name="sip_calculator">SIP Calculator</string>
+    <string name="tenure">Tenure *</string>
+    <string name="first_emi_date">First EMI Date *</string>
+    <string name="share_result">Share Result</string>
+    <string name="convert_pdf">Convert PDF</string>
+    <string name="monthly_withdrawal_amount">Monthly Withdrawal Amount *</string>
+    <string name="enter_monthly_withdrawal_amount">Enter Monthly Withdrawal Amount</string>
+    <string name="lumpsum">Lumpsum</string>
+    <string name="investment_date1">Investment Date *</string>
+    <string name="equity_linked_saving_scheme">Equity Linked Saving Scheme</string>
+    <string name="gst_calculator">GST Calculator</string>
+    <string name="initial_amount">Initial Amount *</string>
+    <string name="gst_rate">GST Rate % *</string>
+    <string name="enter_gst_rate">Enter GST rate</string>
+    <string name="add_gst">Add GST +</string>
+    <string name="sub_gst">Sub GST -</string>
+    <string name="net_amount">Net Amount</string>
+    <string name="gst_amount">GST Amount</string>
+    <string name="vat_calculator">VAT Calculator</string>
+    <string name="amount">Amount *</string>
+    <string name="rate_of_vat">Rate of VAT *</string>
+    <string name="add_vat">Add VAT +</string>
+    <string name="remove_vat">Remove VAT -</string>
+    <string name="original_cost">Original Cost</string>
+    <string name="net_price">Net Price</string>
+    <string name="vat_price">VAT Price</string>
+    <string name="_1">1%</string>
+    <string name="_4">4%</string>
+    <string name="_5">5%</string>
+    <string name="_12_5">12.5%</string>
+    <string name="other">Other</string>
+    <string name="enter_custom_vat_rate">Enter custom vat rate</string>
+
+    <string-array name="Select" translatable="false">
+        <item>Cumulative</item>
+        <item>Quarterly Payout</item>
+    </string-array>
+
+    <string-array name="Select_quarter" translatable="false">
+        <item>Monthly</item>
+        <item>Quarterly</item>
+        <item>Half yearly</item>
+        <item>Yearly</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="history">History</string>
+    <string name="amount_20_000_10_0">Amount - 20,000 (10.0%)</string>
+    <string name="_24_month">24 Month</string>
+    <string name="_10_nov_2023">10 Nov, 2023</string>
+    <string name="interest2">Interest (%)</string>
+    <string name="period_months">Period (Months)</string>
+    <string name="monthly_emi">Monthly EMI</string>
+    <string name="total_payments">Total Payments</string>
+    <string name="balance">Balance</string>
+    <string name="interestrate">Interest</string>
+    <string name="are_you_sure_you_want_to_clear_your_data">Are you sure you want to clear your data ?</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="monthly_deposit">Monthly Deposit *</string>
+    <string name="enter_loan_duration">Enter Loan Duration</string>
+    <string name="enter_loan_year">Enter Loan Year</string>
+    <string name="compound_interest">Compound Interest</string>
+    <string name="principal_amount1">Principal Amount</string>
+    <string name="lumpsum1">Lumpsum</string>
+    <string name="sip">SIP</string>
+    <string name="gst_involved">(GST Involved)</string>
+    <string name="cgst_0_0_0">CGST : 0 % = 0.0</string>
+    <string name="sgst_0_0_0">SGST : 0 % = 0.0</string>
+    <string name="deposit_amount">Deposit Amount *</string>
+    <string name="no_any_emi_calculation">No any Emi Calculation</string>
+    <string name="monthly_investment_amount">Monthly Amount *</string>
+    <string name="you_have_chosen_to_never_ask_the_permission_again_but_write_external_storage_permission_is_needed_for_proper_functioning_of_app">You have chosen to never ask the permission again, but Write External storage permission is needed for proper functioning of app.</string>
+    <string name="enable_from_settings">Enable from settings</string>
+
+
+    <string name="drawer_open">drawer_open</string>
+    <string name="drawer_close">drawer_close</string>
+    <string name="drawer_item_History">History</string>
+    <string name="drawer_item_Share">Share This App</string>
+    <string name="drawer_item_Rate">Rate This App</string>
+    <string name="drawer_item_Feedback">Feedback</string>
+    <string name="drawer_item_Privacy_Policy">Privacy Policy</string>
+    <string name="drawer_item_About">About</string>
+    <string name="drawer_item_Dark_mode">Dark mode</string>
+    <string name="currency_conversion">Currency Conversion</string>
+    <string name="conversion_rate">Conversion Rate</string>
+    <string name="result">Result</string>
+</resources>

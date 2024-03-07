@@ -1,0 +1,50 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginTop="14dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="0dp">
+
+    <RelativeLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/navigation_color">
+
+        <ImageView
+            android:id="@+id/item_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="10sp"
+            android:layout_gravity="center"
+            android:src="@drawable/history" />
+
+        <TextView
+            android:id="@+id/item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/item_icon"
+            android:layout_gravity="center"
+            android:textSize="16sp"
+            android:fontFamily="@font/lexenddeca_bold"
+            android:textColor="@color/dark_blue"
+            android:text="History"/>
+
+        <Switch
+            android:id="@+id/switch_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_marginEnd="10sp"
+            android:layout_alignParentEnd="true"
+            android:checked="false"
+            android:thumb="@drawable/thumb"
+            android:track="@drawable/track"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

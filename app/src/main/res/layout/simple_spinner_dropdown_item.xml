@@ -1,0 +1,11 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:maxLines="1"
+    android:textColor="@color/black"
+    android:gravity="center"
+    android:textSize="15sp"
+    android:letterSpacing="0.020"
+    android:fontFamily="@font/lexenddeca_semibold" />

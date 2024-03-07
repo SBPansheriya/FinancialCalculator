@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_spinner">#FFFFFFFF</color>
+    <color name="border_color">#FFFFFFFF</color>
+    <color name="dark_blue">#0D5B68</color>
+    <color name="hint_color">#33000000</color>
+    <color name="gray">#80000000</color>
+    <color name="year_date_color">#F1F1FA</color>
+    <color name="si_ci_text_color">#4D000000</color>
+    <color name="share_text_color">#4D000000</color>
+    <color name="history_color">#80000000</color>
+    <color name="delete_color">#D0D5DD</color>
+    <color name="navigation_color">#1A0D5B68</color>
+
+</resources>

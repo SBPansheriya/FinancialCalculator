@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_spinner"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/month"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/lexenddeca_semibold"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:backgroundTint="@null" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/principal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/lexenddeca_semibold"
+            android:text="756"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:backgroundTint="@null" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/interest"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/lexenddeca_semibold"
+            android:text="167"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:backgroundTint="@null" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/total_balance"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/lexenddeca_semibold"
+            android:text="19,243"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

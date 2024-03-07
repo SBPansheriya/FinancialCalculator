@@ -1,0 +1,11 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners android:radius="32dp"/>
+    <stroke
+        android:width="7dp"
+        android:color="@color/year_date_color" /> <!-- Set your desired border color here -->
+
+    <!-- Background Color -->
+    <solid android:color="@color/year_date_color" /> <!-- Set your desired background color here -->
+</shape>
