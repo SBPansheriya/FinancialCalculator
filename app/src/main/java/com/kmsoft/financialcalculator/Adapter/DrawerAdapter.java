@@ -116,7 +116,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             item_icon.setImageResource(drawerItem.getIcon());
 
             if (position == selectedItemPosition) {
-                int color = ContextCompat.getColor(mContext,R.color.white);
+                int color = Color.WHITE;
                 Drawable drawable = ContextCompat.getDrawable(mContext,drawerItem.getIcon());
                 if (drawable != null) {
                     drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);

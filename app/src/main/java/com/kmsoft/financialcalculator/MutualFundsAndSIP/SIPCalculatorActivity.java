@@ -54,8 +54,8 @@ public class SIPCalculatorActivity extends AppCompatActivity {
 
     ImageView back, replace, calender;
     EditText depositAmount, rateInterest, loanTenure;
-    TextView calculate, shareResult, convertPdf;
-    LinearLayout dateSelected, linear;
+    Button calculate, reset, shareResult, convertPdf;
+    LinearLayout dateSelected, linear,title6;
     TextView date, totalInvestmentAmount, totalInterestValue, maturityDate, maturityValue, year, month;
     String selectedDate;
     String tag;
@@ -73,9 +73,6 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.rgb(13, 91, 104));
 
         init();
-
-        shareResult.setEnabled(false);
-        convertPdf.setEnabled(false);
 
         back.setOnClickListener(v -> onBackPressed());
 
@@ -190,19 +187,34 @@ public class SIPCalculatorActivity extends AppCompatActivity {
                 finalMaturityDate = dateFormat.format(maturityDate1);
 
                 linear.setVisibility(View.VISIBLE);
+                title6.setVisibility(View.VISIBLE);
 
                 totalInvestmentAmount.setText(df.format(investmentAmountSIP));
                 totalInterestValue.setText(df.format(interestAmountSIP));
                 maturityValue.setText(df.format(SIPFutureValue));
                 maturityDate.setText(finalMaturityDate);
 
-                shareResult.setBackgroundResource(R.drawable.border2);
-                convertPdf.setBackgroundResource(R.drawable.border2);
-                shareResult.setTextColor(Color.WHITE);
-                convertPdf.setTextColor(Color.WHITE);
-                shareResult.setEnabled(true);
-                convertPdf.setEnabled(true);
+//                shareResult.setBackgroundResource(R.drawable.border2);
+//                convertPdf.setBackgroundResource(R.drawable.border2);
+//                shareResult.setTextColor(Color.WHITE);
+//                convertPdf.setTextColor(Color.WHITE);
+//                shareResult.setEnabled(true);
+//                convertPdf.setEnabled(true);
             }
+        });
+
+        reset.setOnClickListener(v -> {
+            depositAmount.setText("");
+            rateInterest.setText("");
+            loanTenure.setText("");
+            date.setText("");
+
+            tag = "Year";
+            year.setTextColor(ContextCompat.getColor(SIPCalculatorActivity.this, R.color.dark_blue));
+            month.setTextColor(ContextCompat.getColor(SIPCalculatorActivity.this, R.color.history_color));
+
+            linear.setVisibility(View.GONE);
+            title6.setVisibility(View.GONE);
         });
 
         shareResult.setOnClickListener(v -> {
@@ -312,6 +324,7 @@ public class SIPCalculatorActivity extends AppCompatActivity {
     private void generatePDF() {
         String pdfPath = Path();
         Uri fileUri = FileProvider.getUriForFile(this, "com.kmsoft.financialcalculator.fileprovider", new File(pdfPath));
+        Toast.makeText(this, "Pdf creating...", Toast.LENGTH_SHORT).show();
 
         try {
             PdfWriter writer = new PdfWriter(getContentResolver().openOutputStream(fileUri));
@@ -391,6 +404,7 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         rateInterest = findViewById(R.id.rate_interest);
         loanTenure = findViewById(R.id.loan_tenure);
         calculate = findViewById(R.id.calculate);
+        reset = findViewById(R.id.reset);
         shareResult = findViewById(R.id.share_result);
         convertPdf = findViewById(R.id.convert_pdf);
         date = findViewById(R.id.date);
@@ -404,5 +418,6 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         calender = findViewById(R.id.calender);
         dateSelected = findViewById(R.id.date_selected);
         linear = findViewById(R.id.linear);
+        title6 = findViewById(R.id.title6);
     }
 }

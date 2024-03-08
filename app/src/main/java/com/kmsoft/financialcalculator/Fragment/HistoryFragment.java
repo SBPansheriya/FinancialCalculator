@@ -1,4 +1,4 @@
-package com.kmsoft.financialcalculator;
+package com.kmsoft.financialcalculator.Fragment;
 
 import static com.kmsoft.financialcalculator.MainActivity.isStep;
 
@@ -20,7 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kmsoft.financialcalculator.Adapter.HistoryAdapter;
+import com.kmsoft.financialcalculator.DBHelper;
+import com.kmsoft.financialcalculator.MainActivity;
 import com.kmsoft.financialcalculator.Model.EMI;
+import com.kmsoft.financialcalculator.R;
 
 import java.util.ArrayList;
 

@@ -67,6 +67,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/lexenddeca_semibold"
             android:text="19,243"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="13sp"
             app:backgroundTint="@null" />

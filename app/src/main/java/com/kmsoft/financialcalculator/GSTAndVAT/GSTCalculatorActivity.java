@@ -23,8 +23,9 @@ public class GSTCalculatorActivity extends AppCompatActivity {
     ImageView back;
     EditText initialAmount, rateInterest;
     LinearLayout linear;
-    Button addGST, subGST;
+    Button addGST, subGST, calculate, reset;
     TextView netAmount, gstAmount, cgst, sgst, totalAmount;
+    String tag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,53 +34,32 @@ public class GSTCalculatorActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.rgb(13, 91, 104));
 
         init();
-
+        tag = "AddGST";
         addGST.setBackgroundResource(R.drawable.selected);
         subGST.setBackgroundResource(R.drawable.unselected);
 
-        addGST.setTextColor(ContextCompat.getColor(GSTCalculatorActivity.this,R.color.white));
-        subGST.setTextColor(ContextCompat.getColor(GSTCalculatorActivity.this,R.color.dark_blue));
+        addGST.setTextColor(Color.WHITE);
+        subGST.setTextColor(ContextCompat.getColor(GSTCalculatorActivity.this, R.color.dark_blue));
 
         back.setOnClickListener(v -> onBackPressed());
 
         addGST.setOnClickListener(v -> {
-            if (TextUtils.isEmpty(initialAmount.getText().toString()) && TextUtils.isEmpty(rateInterest.getText().toString())) {
-                Toast.makeText(GSTCalculatorActivity.this, "Please Enter valid values", Toast.LENGTH_SHORT).show();
-            } else if (TextUtils.isEmpty(initialAmount.getText().toString())) {
-                Toast.makeText(GSTCalculatorActivity.this, "Please Enter initial amount", Toast.LENGTH_SHORT).show();
-            } else if (TextUtils.isEmpty(rateInterest.getText().toString())) {
-                Toast.makeText(GSTCalculatorActivity.this, "Please Enter rate of interest", Toast.LENGTH_SHORT).show();
-            } else {
-                String initial = initialAmount.getText().toString();
-                String rate = rateInterest.getText().toString();
-
-                double finalInitialAmount = Double.parseDouble(initial);
-                double finalRateInterest = Double.parseDouble(rate);
-
-                double gst = calculateGSTExclusive(finalInitialAmount, finalRateInterest);
-                double netPrice = calculateNetPriceExclusive(finalInitialAmount, gst);
-
-                double halfAmount = gst / 2;
-                double halfPercentage = finalRateInterest / 2;
-
-                linear.setVisibility(View.VISIBLE);
-                DecimalFormat df = new DecimalFormat("#.##");
-
-                netAmount.setText(df.format(finalInitialAmount));
-                gstAmount.setText(df.format(gst));
-                cgst.setText(String.format("CGST : %s%% = %s", halfPercentage, df.format(halfAmount)));
-                sgst.setText(String.format("SGST : %s%% = %s", halfPercentage, df.format(halfAmount)));
-                totalAmount.setText(df.format(netPrice));
-
-                addGST.setBackgroundResource(R.drawable.selected);
-                subGST.setBackgroundResource(R.drawable.unselected);
-
-                addGST.setTextColor(ContextCompat.getColor(GSTCalculatorActivity.this,R.color.white));
-                subGST.setTextColor(ContextCompat.getColor(GSTCalculatorActivity.this,R.color.dark_blue));
-            }
+            tag = "AddGST";
+            addGST.setBackgroundResource(R.drawable.selected);
+            subGST.setBackgroundResource(R.drawable.unselected);
+            addGST.setTextColor(Color.WHITE);
+            subGST.setTextColor(ContextCompat.getColor(GSTCalculatorActivity.this, R.color.dark_blue));
         });
 
         subGST.setOnClickListener(v -> {
+            tag = "SubGST";
+            subGST.setBackgroundResource(R.drawable.selected);
+            addGST.setBackgroundResource(R.drawable.unselected);
+            subGST.setTextColor(Color.WHITE);
+            addGST.setTextColor(ContextCompat.getColor(GSTCalculatorActivity.this, R.color.dark_blue));
+        });
+
+        calculate.setOnClickListener(v -> {
             if (TextUtils.isEmpty(initialAmount.getText().toString()) && TextUtils.isEmpty(rateInterest.getText().toString())) {
                 Toast.makeText(GSTCalculatorActivity.this, "Please Enter valid values", Toast.LENGTH_SHORT).show();
             } else if (TextUtils.isEmpty(initialAmount.getText().toString())) {
@@ -93,31 +73,51 @@ public class GSTCalculatorActivity extends AppCompatActivity {
                 double finalInitialAmount = Double.parseDouble(initial);
                 double finalRateInterest = Double.parseDouble(rate);
 
-                double gstAmountInclusive = calculateGSTInclusive(finalInitialAmount, finalRateInterest);
-                double netPriceInclusive = calculateNetPriceInclusive(finalInitialAmount, gstAmountInclusive);
-
-                double halfAmount = gstAmountInclusive / 2;
-                double halfPercentage = finalRateInterest / 2;
-
                 linear.setVisibility(View.VISIBLE);
                 DecimalFormat df = new DecimalFormat("#.##");
 
-                netAmount.setText(df.format(netPriceInclusive));
-                gstAmount.setText(df.format(gstAmountInclusive));
-                cgst.setText(String.format("CGST : %s%% = %s", halfPercentage, df.format(halfAmount)));
-                sgst.setText(String.format("SGST : %s%% = %s", halfPercentage, df.format(halfAmount)));
-                double totalAmount1 = gstAmountInclusive + netPriceInclusive;
-                totalAmount.setText(df.format(totalAmount1));
+                if (tag.equals("AddGST")) {
+                    double gst = calculateGSTExclusive(finalInitialAmount, finalRateInterest);
+                    double netPrice = calculateNetPriceExclusive(finalInitialAmount, gst);
 
-                subGST.setBackgroundResource(R.drawable.selected);
-                addGST.setBackgroundResource(R.drawable.unselected);
+                    double halfAmount = gst / 2;
+                    double halfPercentage = finalRateInterest / 2;
 
-                subGST.setTextColor(ContextCompat.getColor(GSTCalculatorActivity.this,R.color.white));
-                addGST.setTextColor(ContextCompat.getColor(GSTCalculatorActivity.this,R.color.dark_blue));
+                    netAmount.setText(df.format(finalInitialAmount));
+                    gstAmount.setText(df.format(gst));
+                    cgst.setText(String.format("CGST : %s%% = %s", halfPercentage, df.format(halfAmount)));
+                    sgst.setText(String.format("SGST : %s%% = %s", halfPercentage, df.format(halfAmount)));
+                    totalAmount.setText(df.format(netPrice));
+                } else {
+                    double gstAmountInclusive = calculateGSTInclusive(finalInitialAmount, finalRateInterest);
+                    double netPriceInclusive = calculateNetPriceInclusive(finalInitialAmount, gstAmountInclusive);
+
+                    double halfAmount = gstAmountInclusive / 2;
+                    double halfPercentage = finalRateInterest / 2;
+
+                    netAmount.setText(df.format(finalInitialAmount));
+                    gstAmount.setText(df.format(gstAmountInclusive));
+                    cgst.setText(String.format("CGST : %s%% = %s", halfPercentage, df.format(halfAmount)));
+                    sgst.setText(String.format("SGST : %s%% = %s", halfPercentage, df.format(halfAmount)));
+                    totalAmount.setText(df.format(netPriceInclusive));
+                }
             }
         });
 
+        reset.setOnClickListener(v -> {
+            initialAmount.setText("");
+            rateInterest.setText("");
 
+            linear.setVisibility(View.GONE);
+
+            tag = "AddGST";
+
+            addGST.setBackgroundResource(R.drawable.selected);
+            subGST.setBackgroundResource(R.drawable.unselected);
+
+            addGST.setTextColor(Color.WHITE);
+            subGST.setTextColor(ContextCompat.getColor(GSTCalculatorActivity.this, R.color.dark_blue));
+        });
     }
 
     // GST Exclusive
@@ -150,5 +150,7 @@ public class GSTCalculatorActivity extends AppCompatActivity {
         sgst = findViewById(R.id.sgst);
         totalAmount = findViewById(R.id.total_amount);
         linear = findViewById(R.id.linear);
+        calculate = findViewById(R.id.calculate);
+        reset = findViewById(R.id.reset);
     }
 }

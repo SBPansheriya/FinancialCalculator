@@ -31,7 +31,7 @@ public class FDCalculatorActivity extends AppCompatActivity {
     ImageView back, replace, calender;
     EditText depositAmount, rateInterest, loanTenure;
     Button calculate, reset;
-    LinearLayout dateSelected,linear;
+    LinearLayout dateSelected, linear;
     Spinner spinner;
     TextView date, maturityValue, investmentAmount, totalInterest, investmentDate, maturityDate, year, month;
     String selectedDate;
@@ -115,21 +115,21 @@ public class FDCalculatorActivity extends AppCompatActivity {
                     return;
                 }
 
-                int finalLoanYear;
+                double finalLoanYear;
                 if (tag.equals("Year")) {
-                    finalLoanYear = Integer.parseInt(loanYear);
+                    finalLoanYear = Double.parseDouble(loanYear);
                 } else {
-                    finalLoanYear = Integer.parseInt(loanYear) / 12;
+                    finalLoanYear = Double.parseDouble(loanYear) / 12;
                 }
                 double quarter = 0;
 
-                if (spinner.getSelectedItem().toString().equals("Cumulative")){
+                if (spinner.getSelectedItem().toString().equals("Cumulative")) {
                     quarter = 4;
-                } else if (spinner.getSelectedItem().toString().equals("Quarterly Payout")){
-                    quarter = 1.0/finalLoanYear;
+                } else if (spinner.getSelectedItem().toString().equals("Quarterly Payout")) {
+                    quarter = 1.0 / finalLoanYear;
                 }
 
-                double maturityAmount = calculateMaturityValue(finalDepositAmount,finalRateOfInterest,finalLoanYear,quarter);
+                double maturityAmount = calculateMaturityValue(finalDepositAmount, finalRateOfInterest, finalLoanYear, quarter);
 
                 DecimalFormat df = new DecimalFormat("#.##");
 
@@ -147,13 +147,13 @@ public class FDCalculatorActivity extends AppCompatActivity {
                 if (dateObject != null) {
                     calendar.setTime(dateObject);
                 }
-                calendar.add(Calendar.YEAR, finalLoanYear);
+                calendar.add(Calendar.YEAR, (int) finalLoanYear);
                 Date maturityDate1 = calendar.getTime();
                 String finalMaturityDate = dateFormat.format(maturityDate1);
 
                 double totalInterestAmount = maturityAmount - finalDepositAmount;
 
-                if (spinner.getSelectedItem().toString().equals("Cumulative")){
+                if (spinner.getSelectedItem().toString().equals("Cumulative")) {
                     maturityValue.setText(df.format(maturityAmount));
                 } else {
                     maturityValue.setText(String.valueOf(finalDepositAmount));
@@ -188,7 +188,7 @@ public class FDCalculatorActivity extends AppCompatActivity {
         });
     }
 
-    public static double calculateMaturityValue(double depositAmount, double rateOfInterest, int years, double quarter) {
+    public static double calculateMaturityValue(double depositAmount, double rateOfInterest, double years, double quarter) {
 
         double rate = rateOfInterest / 100;
         double r = rate / quarter;

@@ -139,7 +139,7 @@
                     app:backgroundTint="@null" />
 
                 <View
-                    android:layout_width="10dp"
+                    android:layout_width="20dp"
                     android:layout_height="0dp" />
 
                 <Button
@@ -157,11 +157,48 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/title4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title3"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/calculate"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border2"
+                    android:fontFamily="@font/lexenddeca_medium"
+                    android:text="@string/calculate"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    app:backgroundTint="@null" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="0dp" />
+
+                <Button
+                    android:id="@+id/reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border3"
+                    android:fontFamily="@font/lexenddeca_medium"
+                    android:text="@string/reset"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="12sp"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:layout_below="@+id/title3"
+                android:layout_below="@+id/title4"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="10sp"

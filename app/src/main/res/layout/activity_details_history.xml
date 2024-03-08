@@ -223,6 +223,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10sp"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/border"
         android:layout_below="@+id/linear"
@@ -232,7 +233,7 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="15dp">
 
             <TextView
@@ -302,7 +303,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10sp"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="10dp"
             tools:listitem="@layout/item_detail_history_list" />
     </LinearLayout>
 </RelativeLayout>

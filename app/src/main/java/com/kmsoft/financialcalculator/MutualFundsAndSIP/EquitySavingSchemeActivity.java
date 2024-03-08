@@ -54,8 +54,9 @@ public class EquitySavingSchemeActivity extends AppCompatActivity {
 
     ImageView line, line1, back, replace, calender;
     EditText depositAmount, rateInterest, loanTenure;
-    TextView calculate, shareResult, convertPdf, sip, lumpSum,heading;
-    LinearLayout dateSelected, linear;
+    Button calculate, reset, shareResult, convertPdf;
+    TextView sip, lumpSum, heading;
+    LinearLayout dateSelected, linear, title6;
     TextView date, totalInvestmentAmount, totalInterestValue, maturityDate, maturityValue, year, month;
     String selectedDate;
     String tag;
@@ -158,13 +159,12 @@ public class EquitySavingSchemeActivity extends AppCompatActivity {
                     return;
                 }
 
-                int finalLoanYear;
+                double finalLoanYear;
                 if (tag.equals("Year")) {
-                    finalLoanYear = Integer.parseInt(loanYear);
+                    finalLoanYear = Double.parseDouble((loanYear));
                 } else {
-                    finalLoanYear = Integer.parseInt(loanYear) / 12;
+                    finalLoanYear = Double.parseDouble(loanYear) / 12;
                 }
-
                 if (tag.equals("Year")) {
                     if (finalLoanYear > 30) {
                         Toast.makeText(EquitySavingSchemeActivity.this, "You can't add 30 year above loan tenure", Toast.LENGTH_SHORT).show();
@@ -198,11 +198,12 @@ public class EquitySavingSchemeActivity extends AppCompatActivity {
                 if (dateObject != null) {
                     calendar.setTime(dateObject);
                 }
-                calendar.add(Calendar.YEAR, finalLoanYear);
+                calendar.add(Calendar.YEAR, (int) finalLoanYear);
                 Date maturityDate1 = calendar.getTime();
                 finalMaturityDate = dateFormat.format(maturityDate1);
 
                 linear.setVisibility(View.VISIBLE);
+                title6.setVisibility(View.VISIBLE);
 
                 if (finaTag.equals("LumpSum")) {
                     interestAmount = maturityAmountELSSYearly - finalDepositAmount;
@@ -226,6 +227,28 @@ public class EquitySavingSchemeActivity extends AppCompatActivity {
                 shareResult.setEnabled(true);
                 convertPdf.setEnabled(true);
             }
+        });
+
+        reset.setOnClickListener(v -> {
+            depositAmount.setText("");
+            rateInterest.setText("");
+            loanTenure.setText("");
+            date.setText("");
+
+            finaTag = "Sip";
+
+            heading.setText(R.string.monthly_investment_amount);
+            line.setVisibility(View.VISIBLE);
+            line1.setVisibility(View.GONE);
+            sip.setTextColor(ContextCompat.getColor(EquitySavingSchemeActivity.this, R.color.dark_blue));
+            lumpSum.setTextColor(ContextCompat.getColor(EquitySavingSchemeActivity.this, R.color.si_ci_text_color));
+
+            tag = "Year";
+            year.setTextColor(ContextCompat.getColor(EquitySavingSchemeActivity.this, R.color.dark_blue));
+            month.setTextColor(ContextCompat.getColor(EquitySavingSchemeActivity.this, R.color.history_color));
+
+            linear.setVisibility(View.GONE);
+            title6.setVisibility(View.GONE);
         });
 
         shareResult.setOnClickListener(v -> {
@@ -344,6 +367,7 @@ public class EquitySavingSchemeActivity extends AppCompatActivity {
     private void generatePDF() {
         String pdfPath = Path();
         Uri fileUri = FileProvider.getUriForFile(this, "com.kmsoft.financialcalculator.fileprovider", new File(pdfPath));
+        Toast.makeText(this, "Pdf creating...", Toast.LENGTH_SHORT).show();
 
         try {
             PdfWriter writer = new PdfWriter(getContentResolver().openOutputStream(fileUri));
@@ -402,7 +426,7 @@ public class EquitySavingSchemeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static double calculateELSSFutureValueMonthly(double principal, double annualInterestRate, int numberOfPeriods) {
+    public static double calculateELSSFutureValueMonthly(double principal, double annualInterestRate, double numberOfPeriods) {
         // Monthly
         double r = annualInterestRate / 1200;
         double numerator = Math.pow(1 + r, numberOfPeriods) - 1;
@@ -412,9 +436,9 @@ public class EquitySavingSchemeActivity extends AppCompatActivity {
 
     }
 
-    public static double calculateELSSFutureValueYearly(double principal, double annualInterestRate, int numberOfPeriods) {
+    public static double calculateELSSFutureValueYearly(double principal, double annualInterestRate, double numberOfPeriods) {
         // Yearly
-        double rate = annualInterestRate/100;
+        double rate = annualInterestRate / 100;
         return principal * Math.pow(1 + rate, numberOfPeriods);
     }
 
@@ -459,6 +483,7 @@ public class EquitySavingSchemeActivity extends AppCompatActivity {
         rateInterest = findViewById(R.id.rate_interest);
         loanTenure = findViewById(R.id.loan_tenure);
         calculate = findViewById(R.id.calculate);
+        reset = findViewById(R.id.reset);
         shareResult = findViewById(R.id.share_result);
         convertPdf = findViewById(R.id.convert_pdf);
         date = findViewById(R.id.date);
@@ -475,5 +500,6 @@ public class EquitySavingSchemeActivity extends AppCompatActivity {
         sip = findViewById(R.id.sip);
         lumpSum = findViewById(R.id.lumpsum);
         heading = findViewById(R.id.heading);
+        title6 = findViewById(R.id.title6);
     }
 }

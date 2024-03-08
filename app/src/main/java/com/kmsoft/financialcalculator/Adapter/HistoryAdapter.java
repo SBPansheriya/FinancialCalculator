@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kmsoft.financialcalculator.DetailsHistoryActivity;
-import com.kmsoft.financialcalculator.HistoryFragment;
+import com.kmsoft.financialcalculator.Fragment.HistoryFragment;
 import com.kmsoft.financialcalculator.Model.EMI;
 import com.kmsoft.financialcalculator.R;
 

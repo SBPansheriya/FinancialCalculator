@@ -45,12 +45,13 @@ public class VATCalculatorActivity extends AppCompatActivity {
         addVat.setBackgroundResource(R.drawable.selected);
         removeVat.setBackgroundResource(R.drawable.unselected);
 
-        addVat.setTextColor(ContextCompat.getColor(VATCalculatorActivity.this, R.color.white));
+        addVat.setTextColor(Color.WHITE);
         removeVat.setTextColor(ContextCompat.getColor(VATCalculatorActivity.this, R.color.dark_blue));
 
         back.setOnClickListener(v -> onBackPressed());
 
         percentage1.setOnClickListener(v -> {
+            customVatRate.setVisibility(View.GONE);
             finalRate = 1.0;
             percentage4.setChecked(false);
             percentage5.setChecked(false);
@@ -59,6 +60,7 @@ public class VATCalculatorActivity extends AppCompatActivity {
         });
 
         percentage4.setOnClickListener(v -> {
+            customVatRate.setVisibility(View.GONE);
             finalRate = 4.0;
             percentage1.setChecked(false);
             percentage5.setChecked(false);
@@ -67,6 +69,7 @@ public class VATCalculatorActivity extends AppCompatActivity {
         });
 
         percentage5.setOnClickListener(v -> {
+            customVatRate.setVisibility(View.GONE);
             finalRate = 5.0;
             percentage4.setChecked(false);
             percentage1.setChecked(false);
@@ -75,6 +78,7 @@ public class VATCalculatorActivity extends AppCompatActivity {
         });
 
         percentage12.setOnClickListener(v -> {
+            customVatRate.setVisibility(View.GONE);
             finalRate = 12.5;
             percentage4.setChecked(false);
             percentage5.setChecked(false);
@@ -97,7 +101,7 @@ public class VATCalculatorActivity extends AppCompatActivity {
             addVat.setBackgroundResource(R.drawable.selected);
             removeVat.setBackgroundResource(R.drawable.unselected);
 
-            addVat.setTextColor(ContextCompat.getColor(VATCalculatorActivity.this, R.color.white));
+            addVat.setTextColor(Color.WHITE);
             removeVat.setTextColor(ContextCompat.getColor(VATCalculatorActivity.this, R.color.dark_blue));
 
         });
@@ -109,7 +113,7 @@ public class VATCalculatorActivity extends AppCompatActivity {
             removeVat.setBackgroundResource(R.drawable.selected);
             addVat.setBackgroundResource(R.drawable.unselected);
 
-            removeVat.setTextColor(ContextCompat.getColor(VATCalculatorActivity.this, R.color.white));
+            removeVat.setTextColor(Color.WHITE);
             addVat.setTextColor(ContextCompat.getColor(VATCalculatorActivity.this, R.color.dark_blue));
 
         });
@@ -172,7 +176,7 @@ public class VATCalculatorActivity extends AppCompatActivity {
             addVat.setBackgroundResource(R.drawable.selected);
             removeVat.setBackgroundResource(R.drawable.unselected);
 
-            addVat.setTextColor(ContextCompat.getColor(VATCalculatorActivity.this, R.color.white));
+            addVat.setTextColor(Color.WHITE);
             removeVat.setTextColor(ContextCompat.getColor(VATCalculatorActivity.this, R.color.dark_blue));
         });
     }

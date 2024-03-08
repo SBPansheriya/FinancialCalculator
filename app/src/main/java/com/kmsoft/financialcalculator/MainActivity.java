@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,6 +28,9 @@ import com.kmsoft.financialcalculator.BankingCalculation.RDCalculatorActivity;
 import com.kmsoft.financialcalculator.BankingCalculation.SimpleAndCompoundActivity;
 import com.kmsoft.financialcalculator.EMICalculators.CompareLoanActivity;
 import com.kmsoft.financialcalculator.EMICalculators.EMICalculatorActivity;
+import com.kmsoft.financialcalculator.Fragment.AboutFragment;
+import com.kmsoft.financialcalculator.Fragment.HistoryFragment;
+import com.kmsoft.financialcalculator.Fragment.PrivacyPolicyFragment;
 import com.kmsoft.financialcalculator.GSTAndVAT.GSTCalculatorActivity;
 import com.kmsoft.financialcalculator.GSTAndVAT.VATCalculatorActivity;
 import com.kmsoft.financialcalculator.LoanCalculators.LoanAmountActivity;
@@ -169,12 +173,31 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
     }
 
     @Override
-    public void onItemClicked(DrawerItem drawerItem,int position) {
+    public void onItemClicked(DrawerItem drawerItem, int position) {
 
         mDrawerAdapter.setSelectedItemPosition(position + 1);
 
         if (drawerItem.getName().equals("History")) {
             addFragment(new HistoryFragment());
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else if (drawerItem.getName().equals("Share This App")) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else if (drawerItem.getName().equals("Rate This App")) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else if (drawerItem.getName().equals("Feedback")) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"testkmsoft@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback about application");
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else if (drawerItem.getName().equals("Privacy Policy")) {
+            addFragment(new PrivacyPolicyFragment());
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else if (drawerItem.getName().equals("About")) {
+            addFragment(new AboutFragment());
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -191,6 +214,12 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
         super.onBackPressed();
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.drawer_layout);
         if (fragment instanceof HistoryFragment) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else if (fragment instanceof AboutFragment) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else if (fragment instanceof PrivacyPolicyFragment) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
