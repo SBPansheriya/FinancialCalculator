@@ -29,7 +29,7 @@ public class HistoryDetailAdapter extends RecyclerView.Adapter<HistoryDetailAdap
     @Override
     public HistoryDetailAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detail_history_list, parent, false);
-        return new HistoryDetailAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class HistoryDetailAdapter extends RecyclerView.Adapter<HistoryDetailAdap
         return detailesEmiArrayList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView month,principal,interest,totalBalance;
         public ViewHolder(@NonNull View itemView) {

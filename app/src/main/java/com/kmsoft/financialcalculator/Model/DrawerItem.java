@@ -21,7 +21,4 @@ public class DrawerItem {
         return icon;
     }
 
-    public void setIcon(int icon) {
-        this.icon = icon;
-    }
 }

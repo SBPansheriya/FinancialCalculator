@@ -35,16 +35,8 @@ public class EMI implements Serializable {
         return principalAmount;
     }
 
-    public void setPrincipalAmount(double principalAmount) {
-        this.principalAmount = principalAmount;
-    }
-
     public double getInterestRate() {
         return interestRate;
-    }
-
-    public void setInterestRate(double interestRate) {
-        this.interestRate = interestRate;
     }
 
     public double getLoanTenure() {
@@ -59,31 +51,15 @@ public class EMI implements Serializable {
         return totalInterestAmount;
     }
 
-    public void setTotalInterestAmount(double totalInterestAmount) {
-        this.totalInterestAmount = totalInterestAmount;
-    }
-
     public double getMonthlyEmi() {
         return monthlyEmi;
-    }
-
-    public void setMonthlyEmi(double monthlyEmi) {
-        this.monthlyEmi = monthlyEmi;
     }
 
     public double getTotalPayment() {
         return totalPayment;
     }
 
-    public void setTotalPayment(double totalPayment) {
-        this.totalPayment = totalPayment;
-    }
-
     public String getDateTimeStamp() {
         return dateTimeStamp;
-    }
-
-    public void setDateTimeStamp(String dateTimeStamp) {
-        this.dateTimeStamp = dateTimeStamp;
     }
 }

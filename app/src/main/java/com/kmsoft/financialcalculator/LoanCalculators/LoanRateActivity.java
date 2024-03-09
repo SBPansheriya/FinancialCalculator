@@ -82,65 +82,62 @@ public class LoanRateActivity extends AppCompatActivity {
 
         back.setOnClickListener(v -> onBackPressed());
 
-        calculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(emi.getText().toString()) && TextUtils.isEmpty(principalAmount.getText().toString()) && TextUtils.isEmpty(loanTenure.getText().toString())) {
-                    Toast.makeText(LoanRateActivity.this, "Please Enter valid values", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(principalAmount.getText().toString())) {
-                    Toast.makeText(LoanRateActivity.this, "Please Enter principal amount", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(emi.getText().toString())) {
-                    Toast.makeText(LoanRateActivity.this, "Please Enter emi amount", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(loanTenure.getText().toString())) {
-                    Toast.makeText(LoanRateActivity.this, "Please Enter loan tenure", Toast.LENGTH_SHORT).show();
+        calculate.setOnClickListener(v -> {
+            if (TextUtils.isEmpty(emi.getText().toString()) && TextUtils.isEmpty(principalAmount.getText().toString()) && TextUtils.isEmpty(loanTenure.getText().toString())) {
+                Toast.makeText(LoanRateActivity.this, "Please Enter valid values", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(principalAmount.getText().toString())) {
+                Toast.makeText(LoanRateActivity.this, "Please Enter principal amount", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(emi.getText().toString())) {
+                Toast.makeText(LoanRateActivity.this, "Please Enter emi amount", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(loanTenure.getText().toString())) {
+                Toast.makeText(LoanRateActivity.this, "Please Enter loan tenure", Toast.LENGTH_SHORT).show();
+            } else {
+                String principal = principalAmount.getText().toString();
+                String emiMonthly = emi.getText().toString();
+                String loanYear = loanTenure.getText().toString();
+
+                double finalLoanYear;
+
+                if (tag.equals("Year")) {
+                    finalLoanYear = Double.parseDouble(loanYear);
                 } else {
-                    String principal = principalAmount.getText().toString();
-                    String emiMonthly = emi.getText().toString();
-                    String loanYear = loanTenure.getText().toString();
+                    finalLoanYear = Double.parseDouble(loanYear) / 12;
+                }
 
-                    double finalLoanYear;
+                double finalEmiMonthlyAmount = Double.parseDouble(emiMonthly);
+                double finalPrincipalAmount = Double.parseDouble(principal);
 
-                    if (tag.equals("Year")) {
-                        finalLoanYear = Double.parseDouble(loanYear);
-                    } else {
-                        finalLoanYear = Double.parseDouble(loanYear) / 12;
-                    }
+                double interestRate  = calculateInterestRate(finalPrincipalAmount,finalEmiMonthlyAmount,finalLoanYear);
 
-                    double finalEmiMonthlyAmount = Double.parseDouble(emiMonthly);
-                    double finalPrincipalAmount = Double.parseDouble(principal);
+                DecimalFormat df = new DecimalFormat("#.##");
 
-                    double interestRate  = calculateInterestRate(finalPrincipalAmount,finalEmiMonthlyAmount,finalLoanYear);
+                double total = finalEmiMonthlyAmount * finalLoanYear * 12;
+                double totalInterest1 = total - finalPrincipalAmount;
 
-                    DecimalFormat df = new DecimalFormat("#.##");
+                if (!Double.isFinite(total)) {
+                    Toast.makeText(LoanRateActivity.this, "Invalid Calculation", Toast.LENGTH_SHORT).show();
+                } else {
+                    allCalculation.setVisibility(View.VISIBLE);
+                    percentagePie.setVisibility(View.VISIBLE);
 
-                    double total = finalEmiMonthlyAmount * finalLoanYear * 12;
-                    double totalInterest1 = total - finalPrincipalAmount;
+                    totalInterestAmount.setText(df.format(totalInterest1));
+                    totalPrincipal.setText(df.format(finalPrincipalAmount));
+                    totalPayment.setText(df.format(total));
+                    totalInterest.setText(df.format(interestRate));
 
-                    if (!Double.isFinite(total)) {
-                        Toast.makeText(LoanRateActivity.this, "Invalid Calculation", Toast.LENGTH_SHORT).show();
-                    } else {
-                        allCalculation.setVisibility(View.VISIBLE);
-                        percentagePie.setVisibility(View.VISIBLE);
+                    double principalPercentage = (finalPrincipalAmount / total) * 100;
+                    double totalInterestPercentage = (totalInterest1 / total) * 100;
+                    double finalPrincipalPercentage = Double.parseDouble(df.format(principalPercentage));
+                    double finalTotalInterestPercentage = Double.parseDouble(df.format(totalInterestPercentage));
 
-                        totalInterestAmount.setText(df.format(totalInterest1));
-                        totalPrincipal.setText(df.format(finalPrincipalAmount));
-                        totalPayment.setText(df.format(total));
-                        totalInterest.setText(df.format(interestRate));
+                    amountPercentage.setText(String.format("Principal Amount  %s%%", finalPrincipalPercentage));
+                    totalPaymentPercentage.setText(String.format("Total payment  %s%%", finalTotalInterestPercentage));
 
-                        double principalPercentage = (finalPrincipalAmount / total) * 100;
-                        double totalInterestPercentage = (totalInterest1 / total) * 100;
-                        double finalPrincipalPercentage = Double.parseDouble(df.format(principalPercentage));
-                        double finalTotalInterestPercentage = Double.parseDouble(df.format(totalInterestPercentage));
-
-                        amountPercentage.setText(String.format("Principal Amount  %s%%", finalPrincipalPercentage));
-                        totalPaymentPercentage.setText(String.format("Total payment  %s%%", finalTotalInterestPercentage));
-
-                        ArrayList<PieEntry> entries = new ArrayList<>();
-                        entries.add(new PieEntry((float) finalPrincipalPercentage, "Principal Amount"));
-                        entries.add(new PieEntry((float) finalTotalInterestPercentage, "Total payment"));
-                        pieChart.invalidate();
-                        setupPieChart();
-                    }
+                    ArrayList<PieEntry> entries = new ArrayList<>();
+                    entries.add(new PieEntry((float) finalPrincipalPercentage, "Principal Amount"));
+                    entries.add(new PieEntry((float) finalTotalInterestPercentage, "Total payment"));
+                    pieChart.invalidate();
+                    setupPieChart(entries);
                 }
             }
         });
@@ -162,11 +159,7 @@ public class LoanRateActivity extends AppCompatActivity {
         return (totalInterest / principalAmount) ;
     }
 
-    private void setupPieChart() {
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(20, "Principal Amount"));
-        entries.add(new PieEntry(80, "Total payment"));
-
+    private void setupPieChart(ArrayList<PieEntry> entries) {
         PieDataSet pieDataSet = new PieDataSet(entries, "");
 
         int[] MY_COLORS = {

@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
     DrawerAdapter mDrawerAdapter;
     List<DrawerItem> mDrawerItems = new ArrayList<>();
     public static boolean isStep = false;
-
+    int click;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,6 +164,16 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
         });
     }
 
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        if (click == 1) {
+//            mDrawerAdapter.setSelectedItemPosition(5);
+//        } else if (click == 2) {
+//            mDrawerAdapter.setSelectedItemPosition(6);
+//        }
+//    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -174,12 +184,12 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
 
     @Override
     public void onItemClicked(DrawerItem drawerItem, int position) {
-
         mDrawerAdapter.setSelectedItemPosition(position + 1);
 
         if (drawerItem.getName().equals("History")) {
             addFragment(new HistoryFragment());
             mDrawerLayout.closeDrawer(GravityCompat.START);
+            return;
         } else if (drawerItem.getName().equals("Share This App")) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else if (drawerItem.getName().equals("Rate This App")) {
@@ -196,9 +206,11 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
         } else if (drawerItem.getName().equals("Privacy Policy")) {
             addFragment(new PrivacyPolicyFragment());
             mDrawerLayout.closeDrawer(GravityCompat.START);
+            return;
         } else if (drawerItem.getName().equals("About")) {
             addFragment(new AboutFragment());
             mDrawerLayout.closeDrawer(GravityCompat.START);
+            return;
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }

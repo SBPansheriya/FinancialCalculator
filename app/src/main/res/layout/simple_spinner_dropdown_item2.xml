@@ -10,8 +10,7 @@
         android:layout_width="25dp"
         android:layout_height="20dp"
         android:layout_marginStart="10sp"
-        android:layout_gravity="center"
-        android:src="@drawable/india"/>
+        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/name"
@@ -23,5 +22,5 @@
         android:letterSpacing="0.020"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="12sp" />
+        android:textSize="13sp" />
 </LinearLayout>

@@ -40,8 +40,4 @@ public class DetailesEmi {
     public double getTotalBalance() {
         return totalBalance;
     }
-
-    public void setTotalBalance(double totalBalance) {
-        this.totalBalance = totalBalance;
-    }
 }
