@@ -12,11 +12,11 @@
     </item>
     <item android:state_checked="false">
         <shape android:shape="oval">
-            <solid android:color="@color/white"/>
+            <solid android:color="@color/dark_blue"/>
             <size android:width="20dp"
                 android:height="20dp"/>
-            <stroke android:width="7dp"
-                android:color="@color/dark_blue"/>
+            <stroke android:width="5dp"
+                android:color="@color/white"/>
         </shape>
     </item>
 

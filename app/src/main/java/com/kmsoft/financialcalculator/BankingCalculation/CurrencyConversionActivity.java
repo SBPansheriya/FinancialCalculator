@@ -35,7 +35,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -73,8 +72,8 @@ public class CurrencyConversionActivity extends AppCompatActivity {
         spinner_from.setAdapter(adapter);
         spinner_to.setAdapter(adapter);
 
-        spinner_from.setSelection(31);
-        spinner_to.setSelection(81);
+        spinner_from.setSelection(43);
+        spinner_to.setSelection(99);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
@@ -82,7 +81,7 @@ public class CurrencyConversionActivity extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
 
         calculate.setOnClickListener(v -> {
-            if (TextUtils.isEmpty(amount.getText().toString())){
+            if (TextUtils.isEmpty(amount.getText().toString())) {
                 Toast.makeText(this, "Please enter valid amount", Toast.LENGTH_SHORT).show();
             } else {
                 if (isInternetConnected()) {
@@ -98,8 +97,8 @@ public class CurrencyConversionActivity extends AppCompatActivity {
 
         reset.setOnClickListener(v -> {
             amount.setText("");
-            spinner_from.setSelection(31);
-            spinner_to.setSelection(81);
+            spinner_from.setSelection(43);
+            spinner_to.setSelection(99);
             linear.setVisibility(View.GONE);
         });
 
@@ -168,97 +167,88 @@ public class CurrencyConversionActivity extends AppCompatActivity {
     }
 
     private void InitialiseStringArrays() {
-
         countryCodeList = new String[]{
-                "AUD", "AUD", "AUD", "AUD", "AUD", "AUD",
-                "BGN",
-                "BRL",
-                "CAD",
-                "CHF",
-                "CNY",
-                "CZK",
-                "DKK", "DKK", "DKK",
-                "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR",
-                "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR", "EUR",
-                "GBP", "GBP", "GBP",
-                "HKD",
-                "HUF",
-                "IDR",
-                "ILS",
-                "INR", "INR",
-                "ISK",
-                "JPY",
-                "KRW",
-                "MXN",
-                "MYR",
-                "NOK",
-                "NZD",
-                "PHP",
+                "AUD", "ALL", "AFN", "ARS", "AWG", "AZN",
+                "BSD", "BDT", "BBD", "BYN", "BZD", "BMD", "BOB", "BAM", "BWP", "BGN", "BRL", "BND", "BTN",
+                "KHR", "CAD", "KYD", "CLP", "CNY", "COP", "CRC", "HRK", "CUP", "CZK",
+                "DKK", "DOP",
+                "EGP",
+                "FKP", "FJD",
+                "GHS", "GIP", "GTQ", "GGP", "GYD",
+                "HNL", "HKD", "HUF",
+                "ISK", "INR", "IDR", "IRR", "IMP", "ILS",
+                "JMD", "JPY", "JEP",
+                "KZT", "KRW", "KGS",
+                "LAK", "LBP", "LRD",
+                "MKD", "MYR", "MUR", "MXN", "MNT", "MZN",
+                "NAD", "NPR", "ANG", "NZD", "NIO", "NGN", "NOK",
+                "OMR",
+                "PKR", "PAB", "PYG", "PEN", "PHP", "PLN",
                 "PLN",
-                "RON",
-                "SEK",
-                "SGD",
-                "THB",
-                "TRY",
-                "USD", "USD", "USD", "USD", "USD", "USD", "USD", "USD", "USD", "USD", "USD", "USD",
-                "ZAR", "ZAR", "ZAR"};
-
+                "RON", "RUB",
+                "SHP", "SAR", "RSD", "SCR", "SGD", "SBD", "SOS", "ZAR", "LKR", "SEK", "CHF", "SRD", "BSD",
+                "TWD", "THB", "TTD", "TRY", "TVD",
+                "UAH", "AED", "GBP", "USD", "UYU", "UZS",
+                "VES", "VND",
+                "YER"
+        };
         countryFlagList = new int[]{
-                R.drawable.australia, R.drawable.nauru, R.drawable.kiribati, R.drawable.cocos, R.drawable.christmas, R.drawable.norfalk,
-                R.drawable.bulgaria,
-                R.drawable.brazil,
-                R.drawable.canada,
-                R.drawable.switzerland,
-                R.drawable.china,
-                R.drawable.czech,
-                R.drawable.denmark, R.drawable.faroe, R.drawable.greenland,
-                R.drawable.germany, R.drawable.italy, R.drawable.france, R.drawable.spain, R.drawable.portugal,
-                R.drawable.ireland, R.drawable.greece, R.drawable.netherlands, R.drawable.belgium, R.drawable.austria,
-                R.drawable.finland, R.drawable.slovakia, R.drawable.lithuania, R.drawable.slovenia, R.drawable.monaco,
-                R.drawable.malta, R.drawable.cyprus, R.drawable.luxembourg, R.drawable.montenegro, R.drawable.estonia,
-                R.drawable.latvia, R.drawable.andorra, R.drawable.reunion, R.drawable.san_marino, R.drawable.guadeloupe,
-                R.drawable.martinique, R.drawable.mayotte, R.drawable.aland, R.drawable.saint_pierre, R.drawable.saint_martin,
-                R.drawable.united_kingdom, R.drawable.england, R.drawable.scotland,
-                R.drawable.hongkong,
-                R.drawable.hungary,
-                R.drawable.indonesia,
-                R.drawable.israel,
-                R.drawable.india, R.drawable.bhutan,
-                R.drawable.iceland,
-                R.drawable.japan,
-                R.drawable.korea,
-                R.drawable.mexico,
-                R.drawable.malaysia,
-                R.drawable.norway,
-                R.drawable.new_zealand,
-                R.drawable.philippine,
-                R.drawable.poland,
-                R.drawable.romania,
-                R.drawable.sweden,
-                R.drawable.singapore,
-                R.drawable.thailand,
-                R.drawable.turkey,
-                R.drawable.us, R.drawable.ecuador, R.drawable.zimbabwe, R.drawable.panama, R.drawable.purerto, R.drawable.el_salvador, R.drawable.somalia, R.drawable.guam, R.drawable.palau, R.drawable.marshall, R.drawable.micronesia, R.drawable.marina_isaland,
-                R.drawable.south_africa, R.drawable.eswatini, R.drawable.namibia};
-
-        countryNameList = new String[]{"Australia", "Nauru", "Kiribati", "Cocos Islands", "Christmas Island", "Norfolk Island", "Bulgaria", "Brazil", "Canada", "Switzerland", "China", "Czech", "Denmark", "Faroe Islands", "Green land", "Germany", "Italy", "France", "Spain", "Portugal", "Ireland", "Greece", "Netherlands", "Belgium", "Austria", "Finland", "Slovakia", "Lithuania", "Slovenia", "Monaco", "Malta", "Cyprus", "Luxembourg", "Montenegro", "Estonia", "Latvia", "Andorra", "Reunion", "San Marino", "Guadeloupe", "Martinique", "Mayotte", "Aland Islands", "Saint Pierre and Miquelon", "Saint Martin",
-                "United Kingdom", "England", "Scotland",
-                "Hong Kong",
-                "Hungary",
-                "Indonesia",
-                "Israel",
-                "India", "Bhutan",
-                "Iceland",
-                "Japan",
-                "Korea",
-                "Mexico",
-                "Malaysia",
-                "Norway",
-                "New Zealand", "Philippine", "Poland", "Romania", "Sweden",
-                "Singapore",
-                "Thailand",
-                "Turkey",
-                "United States", "Ecuador", "Zimbabwe", "Panama", "Puerto Rico", "El Salvador", "Somalia", "Guam", "Palau", "Marshall", "Micronesia", "Marina Islands", "South Africa", "Eswatini", "Namibia"};
+                R.drawable.australia, R.drawable.albania, R.drawable.afghanistan, R.drawable.argentina, R.drawable.aruba, R.drawable.azerbaijan,
+                R.drawable.bahamas, R.drawable.bangladesh, R.drawable.barbados, R.drawable.belarus, R.drawable.belize,
+                R.drawable.bermuda, R.drawable.bolivia, R.drawable.bosniaandherzegovina, R.drawable.botswana, R.drawable.bulgaria,
+                R.drawable.brazil, R.drawable.brunei, R.drawable.bhutan,
+                R.drawable.cambodia, R.drawable.canada, R.drawable.cayman, R.drawable.chile, R.drawable.china,
+                R.drawable.colombia, R.drawable.costa_rica, R.drawable.croatia, R.drawable.cuba, R.drawable.czech,
+                R.drawable.denmark, R.drawable.dominice,
+                R.drawable.egypt,
+                R.drawable.falkland, R.drawable.fiji,
+                R.drawable.ghana, R.drawable.gibraltar, R.drawable.guatemala, R.drawable.guernsey, R.drawable.guyana,
+                R.drawable.honduras, R.drawable.hongkong, R.drawable.hungary,
+                R.drawable.iceland, R.drawable.india, R.drawable.indonesia, R.drawable.iran, R.drawable.isleofman, R.drawable.israel,
+                R.drawable.jemica, R.drawable.japan, R.drawable.estonia,
+                R.drawable.kazakhstan, R.drawable.koreasouth, R.drawable.kyrgyzstan,
+                R.drawable.laos, R.drawable.lebanon, R.drawable.liberia,
+                R.drawable.macedonia, R.drawable.malaysia, R.drawable.mauritius, R.drawable.mexico, R.drawable.mongolia, R.drawable.mozambique,
+                R.drawable.namibia, R.drawable.nepal, R.drawable.netherlands, R.drawable.new_zealand, R.drawable.nicaragua, R.drawable.nigeria, R.drawable.norway,
+                R.drawable.oman,
+                R.drawable.pakistan, R.drawable.panama, R.drawable.paraguay, R.drawable.peru, R.drawable.philippine, R.drawable.poland,
+                R.drawable.qatar,
+                R.drawable.romania, R.drawable.russia,
+                R.drawable.saint_helena, R.drawable.saudi_arabia, R.drawable.serbia, R.drawable.seychelles, R.drawable.singapore,
+                R.drawable.solomon_islands, R.drawable.somalia, R.drawable.south_africa, R.drawable.sri_lanka, R.drawable.sweden,
+                R.drawable.switzerland, R.drawable.suriname, R.drawable.syria,
+                R.drawable.taiwan, R.drawable.thailand, R.drawable.trinidadandtobago, R.drawable.turkey, R.drawable.tuvalu,
+                R.drawable.ukraine, R.drawable.unitedarabemirates, R.drawable.united_kingdom, R.drawable.us, R.drawable.uruguay, R.drawable.uzbekistan,
+                R.drawable.venezuela, R.drawable.vietnam,
+                R.drawable.yemen,
+        };
+        countryNameList = new String[]{
+                "Australia", "Albania", "Afghanistan", "Argentina", "Aruba", "Azerbaijan",
+                "Bahamas", "Bangladesh", "Barbados", "Belarus", "Belize", "Bermuda", "Bolivia",
+                "Bosnia and Herzegovina", "Botswana", "Bulgaria", "Brazil", "Brunei", "Bhutan",
+                "Cambodia", "Canada", "Cayman", "Chile", "China", "Colombia", "Costa Rica", "Croatia", "Cuba", "Czech Republic",
+                "Denmark", "Dominican Republic",
+                "Egypt",
+                "Falkland Islands", "Fiji",
+                "Ghana", "Gibraltar", "Guatemala", "Guernsey", "Guyana",
+                "Honduras", "Hong kong", "Hungary",
+                "Iceland", "India", "Indonesia", "Iran", "Isle of man", "Israel",
+                "Jamaica", "Japan", "Jersey",
+                "Kazakhstan", "Korea(South)", "Kyrgyzstan",
+                "Laos", "Lebanon", "Liberia",
+                "Macedonia", "Malaysia", "Mauritius", "Mexico", "Mongolia", "Mozambique",
+                "Namibia", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Nigeria", "Norway",
+                "Oman",
+                "Pakistan", "Panama", "Paraguay", "Peru", "Philippines", "Poland",
+                "Qatar",
+                "Romania", "Russia",
+                "Saint Helena", "Saudi Arabia", "Serbia", "Seychelles", "Singapore", "Solomon Islands", "Somalia",
+                "South Africa", "Sri Lanka", "Sweden", "Switzerland", "Suriname", "Syria",
+                "Taiwan", "Thailand", "Trinidad and Tobago", "Turkey", "Tuvalu",
+                "Ukraine", "United Arab Emirates", "U.K.", "U.S.", "Uruguay", "Uzbekistan",
+                "Venezuela", "Vietnam",
+                "Yemen",
+        };
 
         Country[] countries = new Country[countryCodeList.length];
         for (int i = 0; i < countryCodeList.length; i++) {
@@ -280,7 +270,8 @@ public class CurrencyConversionActivity extends AppCompatActivity {
 
         executorService.execute(() -> {
             try {
-                String GET_URL = "https://api.frankfurter.app/latest?from=" + fromCurrency + "&to=" + toCurrency;
+                String GET_URL = "https://api.exchangerate-api.com/v4/latest/" + fromCurrency;
+//                String GET_URL = "https://api.frankfurter.app/latest?from=" + fromCurrency + "&to=" + toCurrency;
                 URL url = new URL(GET_URL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("GET");
@@ -328,7 +319,8 @@ public class CurrencyConversionActivity extends AppCompatActivity {
 
         executorService.execute(() -> {
             try {
-                String GET_URL = "https://api.frankfurter.app/latest";
+//                String GET_URL = "https://api.frankfurter.app/latest";
+                String GET_URL = "https://api.exchangerate-api.com/v4/latest";
                 URL url = new URL(GET_URL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("GET");
@@ -356,21 +348,16 @@ public class CurrencyConversionActivity extends AppCompatActivity {
 
             handler.post(() -> {
                 if (dateString != null) {
-                    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+//                    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                     SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-                    try {
-                        Date date1 = inputFormat.parse(dateString);
-                        String outputDate = null;
-                        if (date1 != null) {
-                            outputDate = outputFormat.format(date1);
-                        }
-                        date.setText(outputDate);
-                        progressDialog.dismiss();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                        progressDialog.dismiss();
+                    Date date1 = new Date();
+                    String outputDate = null;
+                    if (date1 != null) {
+                        outputDate = outputFormat.format(date1);
                     }
+                    date.setText(outputDate);
+                    progressDialog.dismiss();
                 } else {
                     Toast.makeText(CurrencyConversionActivity.this, "GET FAILED", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();

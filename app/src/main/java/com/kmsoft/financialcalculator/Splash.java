@@ -13,6 +13,7 @@ import android.os.Handler;
 public class Splash extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     boolean nightMode = false;
 
     @Override
@@ -23,6 +24,9 @@ public class Splash extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         nightMode = sharedPreferences.getBoolean("nightMode",false);
+        editor = sharedPreferences.edit();
+        editor.putInt("click", 0);
+        editor.commit();
 
         if (nightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

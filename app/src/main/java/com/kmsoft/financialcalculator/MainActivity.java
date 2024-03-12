@@ -11,7 +11,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,7 +56,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
     DrawerAdapter mDrawerAdapter;
     List<DrawerItem> mDrawerItems = new ArrayList<>();
     public static boolean isStep = false;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     int click;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
         getWindow().setStatusBarColor(Color.rgb(13, 91, 104));
 
         init();
+
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
 
         mDrawerItems.add(new DrawerItem(getString(R.string.drawer_item_History), R.drawable.history));
         mDrawerItems.add(new DrawerItem(getString(R.string.drawer_item_Share), R.drawable.share));
@@ -164,15 +171,18 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
         });
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if (click == 1) {
-//            mDrawerAdapter.setSelectedItemPosition(5);
-//        } else if (click == 2) {
-//            mDrawerAdapter.setSelectedItemPosition(6);
-//        }
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        click = sharedPreferences.getInt("click", 0);
+        if (click == 1) {
+            mDrawerAdapter.setSelectedItemPosition(5);
+        } else if (click == 2) {
+            mDrawerAdapter.setSelectedItemPosition(6);
+        } else if (click == 3) {
+            mDrawerAdapter.setSelectedItemPosition(7);
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -189,11 +199,16 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
         if (drawerItem.getName().equals("History")) {
             addFragment(new HistoryFragment());
             mDrawerLayout.closeDrawer(GravityCompat.START);
-            return;
         } else if (drawerItem.getName().equals("Share This App")) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
+            editor = sharedPreferences.edit();
+            editor.putInt("click", 0);
+            editor.commit();
         } else if (drawerItem.getName().equals("Rate This App")) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
+            editor = sharedPreferences.edit();
+            editor.putInt("click", 0);
+            editor.commit();
         } else if (drawerItem.getName().equals("Feedback")) {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:"));
@@ -203,14 +218,25 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
                 startActivity(intent);
             }
             mDrawerLayout.closeDrawer(GravityCompat.START);
+            editor = sharedPreferences.edit();
+            editor.putInt("click", 0);
+            editor.commit();
         } else if (drawerItem.getName().equals("Privacy Policy")) {
             addFragment(new PrivacyPolicyFragment());
             mDrawerLayout.closeDrawer(GravityCompat.START);
-            return;
+            editor = sharedPreferences.edit();
+            editor.putInt("click", 1);
+            editor.commit();
         } else if (drawerItem.getName().equals("About")) {
             addFragment(new AboutFragment());
             mDrawerLayout.closeDrawer(GravityCompat.START);
-            return;
+            editor = sharedPreferences.edit();
+            editor.putInt("click", 2);
+            editor.commit();
+        } else if (drawerItem.getName().equals("Dark mode")) {
+            editor = sharedPreferences.edit();
+            editor.putInt("click", 3);
+            editor.commit();
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
