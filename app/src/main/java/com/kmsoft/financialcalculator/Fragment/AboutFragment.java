@@ -1,7 +1,5 @@
 package com.kmsoft.financialcalculator.Fragment;
 
-import static com.kmsoft.financialcalculator.MainActivity.isStep;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -25,7 +23,6 @@ public class AboutFragment extends Fragment {
         back = view.findViewById(R.id.back);
 
         back.setOnClickListener(v -> {
-            isStep = true;
             Intent intent = new Intent(AboutFragment.this.getContext(), MainActivity.class);
             startActivity(intent);
         });

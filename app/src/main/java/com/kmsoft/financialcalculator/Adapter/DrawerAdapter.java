@@ -1,10 +1,6 @@
 package com.kmsoft.financialcalculator.Adapter;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +10,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kmsoft.financialcalculator.MainActivity;
 import com.kmsoft.financialcalculator.Model.DrawerItem;
 import com.kmsoft.financialcalculator.R;
 
@@ -25,31 +20,20 @@ import java.util.List;
 
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    boolean nightMode = false;
     private final int VIEW_TYPE_HEADER = 0;
-    private final Context mContext;
+    private final MainActivity mContext;
     private final List<DrawerItem> mDrawerItems;
     private final DrawerItemClickedListener mlistener;
     private View mHeaderView;
-    private int selectedItemPosition = 1;
 
     public interface DrawerItemClickedListener {
-        void onItemClicked(DrawerItem drawerItem,int position);
+        void onItemClicked(DrawerItem drawerItem);
     }
 
-    public DrawerAdapter(Context context, List<DrawerItem> drawerItems, DrawerItemClickedListener listener) {
+    public DrawerAdapter(MainActivity context, List<DrawerItem> drawerItems, DrawerItemClickedListener listener) {
         mContext = context;
         mDrawerItems = drawerItems;
         mlistener = listener;
-    }
-
-    public void setSelectedItemPosition(int position) {
-        int previousSelectedItemPosition = selectedItemPosition;
-        selectedItemPosition = position;
-        notifyItemChanged(previousSelectedItemPosition);
-        notifyItemChanged(selectedItemPosition);
     }
 
     @NonNull
@@ -68,7 +52,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (holder instanceof HeaderViewHolder) {
         } else {
             DrawerItem drawerItem = mDrawerItems.get(position - 1);
-            ((ItemViewHolder) holder).bind(drawerItem, position);
+            ((ItemViewHolder) holder).bind(drawerItem);
         }
     }
 
@@ -111,29 +95,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             switchBtn = itemView.findViewById(R.id.switch_btn);
         }
 
-        public void bind(DrawerItem drawerItem, int position) {
+        public void bind(DrawerItem drawerItem) {
             item_text.setText(drawerItem.getName());
             item_icon.setImageResource(drawerItem.getIcon());
-
-            if (position == selectedItemPosition) {
-                int color = Color.WHITE;
-                Drawable drawable = ContextCompat.getDrawable(mContext,drawerItem.getIcon());
-                if (drawable != null) {
-                    drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-                }
-                item_icon.setImageDrawable(drawable);
-                linearLayout.setBackgroundColor(Color.rgb(13,91,104));
-                item_text.setTextColor(Color.WHITE);
-            } else {
-                int color = ContextCompat.getColor(mContext,R.color.dark_blue);
-                Drawable drawable = ContextCompat.getDrawable(mContext,drawerItem.getIcon());
-                if (drawable != null) {
-                    drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-                }
-                item_icon.setImageDrawable(drawable);
-                linearLayout.setBackgroundColor(ContextCompat.getColor(mContext,R.color.navigation_color));
-                item_text.setTextColor(ContextCompat.getColor(mContext,R.color.dark_blue));
-            }
 
             if (drawerItem.getName().equals("Dark mode")) {
                 switchBtn.setVisibility(View.VISIBLE);
@@ -141,24 +105,14 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 switchBtn.setVisibility(View.GONE);
             }
 
-            sharedPreferences = mContext.getSharedPreferences("MODE", Context.MODE_PRIVATE);
-            nightMode = sharedPreferences.getBoolean("nightMode", false);
-
-            if (nightMode) {
-                switchBtn.setChecked(true);
-            }
+            switchBtn.setChecked(mContext.isDarkModeEnabled());
 
             switchBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    editor = sharedPreferences.edit();
-                    editor.putBoolean("nightMode", true);
+                    mContext.setDarkMode(Configuration.UI_MODE_NIGHT_YES);
                 } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    editor = sharedPreferences.edit();
-                    editor.putBoolean("nightMode", false);
+                    mContext.setDarkMode(Configuration.UI_MODE_NIGHT_NO);
                 }
-                editor.commit();
             });
         }
 
@@ -166,7 +120,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public void onClick(View view) {
             int position = getAdapterPosition() - 1;
             DrawerItem drawerItem = mDrawerItems.get(position);
-            mlistener.onItemClicked(drawerItem,position);
+            mlistener.onItemClicked(drawerItem);
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.kmsoft.financialcalculator.Fragment;
 
-import static com.kmsoft.financialcalculator.MainActivity.isStep;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -49,7 +47,6 @@ public class HistoryFragment extends Fragment {
         Display();
 
         back.setOnClickListener(v -> {
-            isStep = true;
             Intent intent = new Intent(HistoryFragment.this.getContext(), MainActivity.class);
             startActivity(intent);
         });

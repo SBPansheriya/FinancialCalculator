@@ -18,13 +18,15 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
     Context c;
     String[] names;
     int[] images;
+    String[] countryCodeList;
     LayoutInflater layoutInflater;
 
-    public SpinnerAdapter(Context c, String[] names, int[] images) {
+    public SpinnerAdapter(Context c, String[] names, int[] images, String[] countryCodeList) {
         super(c, R.layout.simple_spinner_dropdown_item2, names);
         this.c = c;
         this.names = names;
         this.images = images;
+        this.countryCodeList = countryCodeList;
         layoutInflater = LayoutInflater.from(c);
     }
 
@@ -36,7 +38,7 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
         TextView name = row.findViewById(R.id.name);
         ImageView flag = row.findViewById(R.id.flag);
 
-        name.setText(names[position]);
+        name.setText(countryCodeList[position]);
         flag.setBackgroundResource(images[position]);
         return row;
     }

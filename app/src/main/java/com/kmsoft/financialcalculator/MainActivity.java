@@ -11,9 +11,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -55,10 +54,6 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
     private ActionBarDrawerToggle mDrawerToggle;
     DrawerAdapter mDrawerAdapter;
     List<DrawerItem> mDrawerItems = new ArrayList<>();
-    public static boolean isStep = false;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    int click;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
         getWindow().setStatusBarColor(Color.rgb(13, 91, 104));
 
         init();
-
-        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
 
         mDrawerItems.add(new DrawerItem(getString(R.string.drawer_item_History), R.drawable.history));
         mDrawerItems.add(new DrawerItem(getString(R.string.drawer_item_Share), R.drawable.share));
@@ -171,17 +164,15 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        click = sharedPreferences.getInt("click", 0);
-        if (click == 1) {
-            mDrawerAdapter.setSelectedItemPosition(5);
-        } else if (click == 2) {
-            mDrawerAdapter.setSelectedItemPosition(6);
-        } else if (click == 3) {
-            mDrawerAdapter.setSelectedItemPosition(7);
-        }
+    public boolean isDarkModeEnabled() {
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return currentNightMode == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    public void setDarkMode(int nightMode) {
+        getApplicationContext().getResources().getConfiguration().uiMode &= ~Configuration.UI_MODE_NIGHT_MASK;
+        getApplicationContext().getResources().getConfiguration().uiMode |= nightMode;
+        recreate();
     }
 
     @Override
@@ -193,21 +184,18 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
     }
 
     @Override
-    public void onItemClicked(DrawerItem drawerItem, int position) {
-        mDrawerAdapter.setSelectedItemPosition(position + 1);
-        editor = sharedPreferences.edit();
+    public void onItemClicked(DrawerItem drawerItem) {
         switch (drawerItem.getName()) {
             case "History":
                 addFragment(new HistoryFragment());
                 mDrawerLayout.closeDrawer(GravityCompat.START);
-                editor.putInt("click", 0);
                 break;
             case "Share This App":
-            case "Rate This App":                     
+            case "Rate This App":
                 mDrawerLayout.closeDrawer(GravityCompat.START);
-                editor.putInt("click", 0);
                 break;
             case "Feedback":
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setData(Uri.parse("mailto:"));
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"testkmsoft@gmail.com"});
@@ -215,25 +203,16 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-                editor.putInt("click", 0);
                 break;
             case "Privacy Policy":
-                addFragment(new PrivacyPolicyFragment());
                 mDrawerLayout.closeDrawer(GravityCompat.START);
-                editor.putInt("click", 1);
+                addFragment(new PrivacyPolicyFragment());
                 break;
             case "About":
-                addFragment(new AboutFragment());
                 mDrawerLayout.closeDrawer(GravityCompat.START);
-                editor.putInt("click", 2);
-                break;
-            case "Dark mode":
-                editor.putInt("click", 3);
+                addFragment(new AboutFragment());
                 break;
         }
-        editor.commit();
-        mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
     @Override

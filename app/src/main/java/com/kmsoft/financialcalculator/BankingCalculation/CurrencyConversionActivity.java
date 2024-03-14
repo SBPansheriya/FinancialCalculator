@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ import java.util.concurrent.Executors;
 public class CurrencyConversionActivity extends AppCompatActivity {
 
     EditText amount;
+    ImageView back;
     LinearLayout linear;
     Spinner spinner_from, spinner_to;
     Button calculate, reset;
@@ -68,17 +70,19 @@ public class CurrencyConversionActivity extends AppCompatActivity {
 
         InitialiseStringArrays();
 
-        adapter = new SpinnerAdapter(this, countryNameList, countryFlagList);
+        adapter = new SpinnerAdapter(this, countryNameList, countryFlagList,countryCodeList);
         spinner_from.setAdapter(adapter);
         spinner_to.setAdapter(adapter);
 
-        spinner_from.setSelection(43);
-        spinner_to.setSelection(99);
+        spinner_from.setSelection(99);
+        spinner_to.setSelection(43);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
         progressDialog.setMessage("Getting currency conversion data");
         progressDialog.setCanceledOnTouchOutside(false);
+
+        back.setOnClickListener(v -> onBackPressed());
 
         calculate.setOnClickListener(v -> {
             if (TextUtils.isEmpty(amount.getText().toString())) {
@@ -97,8 +101,8 @@ public class CurrencyConversionActivity extends AppCompatActivity {
 
         reset.setOnClickListener(v -> {
             amount.setText("");
-            spinner_from.setSelection(43);
-            spinner_to.setSelection(99);
+            spinner_from.setSelection(99);
+            spinner_to.setSelection(43);
             linear.setVisibility(View.GONE);
         });
 
@@ -271,7 +275,6 @@ public class CurrencyConversionActivity extends AppCompatActivity {
         executorService.execute(() -> {
             try {
                 String GET_URL = "https://api.exchangerate-api.com/v4/latest/" + fromCurrency;
-//                String GET_URL = "https://api.frankfurter.app/latest?from=" + fromCurrency + "&to=" + toCurrency;
                 URL url = new URL(GET_URL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("GET");
@@ -296,7 +299,6 @@ public class CurrencyConversionActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            //updates the UI
             handler.post(() -> {
                 if (exchangeRate != 0 && !amount.getText().toString().equals("")) {
                     double input = Double.parseDouble(amount.getText().toString());
@@ -304,7 +306,7 @@ public class CurrencyConversionActivity extends AppCompatActivity {
                     String currencyConversionRate = "1 " + fromCurrency + " = " + (1 * exchangeRate) + " " + toCurrency;
                     conversion_rate.setText(currencyConversionRate);
 
-                    result.setText(String.format("%s", result1.setScale(3, RoundingMode.UP).toPlainString()));
+                    result.setText(String.format("%s", result1.setScale(2, RoundingMode.UP).toPlainString()));
                 } else {
                     Toast.makeText(CurrencyConversionActivity.this, "GET FAILED", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
@@ -319,7 +321,6 @@ public class CurrencyConversionActivity extends AppCompatActivity {
 
         executorService.execute(() -> {
             try {
-//                String GET_URL = "https://api.frankfurter.app/latest";
                 String GET_URL = "https://api.exchangerate-api.com/v4/latest";
                 URL url = new URL(GET_URL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -348,7 +349,6 @@ public class CurrencyConversionActivity extends AppCompatActivity {
 
             handler.post(() -> {
                 if (dateString != null) {
-//                    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                     SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
                     Date date1 = new Date();
@@ -385,6 +385,7 @@ public class CurrencyConversionActivity extends AppCompatActivity {
 
     private void init() {
         amount = findViewById(R.id.conversation_amount);
+        back = findViewById(R.id.back);
         spinner_from = findViewById(R.id.spinner_from);
         spinner_to = findViewById(R.id.spinner_to);
         calculate = findViewById(R.id.calculate);
