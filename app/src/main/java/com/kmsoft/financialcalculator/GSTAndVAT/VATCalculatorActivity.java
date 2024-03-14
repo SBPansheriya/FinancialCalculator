@@ -23,7 +23,7 @@ public class VATCalculatorActivity extends AppCompatActivity {
 
     ImageView back;
     EditText initialAmount, customVatRate;
-    CheckBox percentage1,percentage4,percentage5,percentage12,other;
+    CheckBox percentage1, percentage4, percentage5, percentage12, other;
     LinearLayout linear;
     Button addVat, removeVat, calculate, reset;
     TextView original_cost, vatPrice, netPrice;
@@ -53,6 +53,7 @@ public class VATCalculatorActivity extends AppCompatActivity {
         percentage1.setOnClickListener(v -> {
             customVatRate.setVisibility(View.GONE);
             finalRate = 1.0;
+            percentage1.setChecked(true);
             percentage4.setChecked(false);
             percentage5.setChecked(false);
             percentage12.setChecked(false);
@@ -63,6 +64,7 @@ public class VATCalculatorActivity extends AppCompatActivity {
             customVatRate.setVisibility(View.GONE);
             finalRate = 4.0;
             percentage1.setChecked(false);
+            percentage4.setChecked(true);
             percentage5.setChecked(false);
             percentage12.setChecked(false);
             other.setChecked(false);
@@ -71,8 +73,9 @@ public class VATCalculatorActivity extends AppCompatActivity {
         percentage5.setOnClickListener(v -> {
             customVatRate.setVisibility(View.GONE);
             finalRate = 5.0;
-            percentage4.setChecked(false);
             percentage1.setChecked(false);
+            percentage4.setChecked(false);
+            percentage5.setChecked(true);
             percentage12.setChecked(false);
             other.setChecked(false);
         });
@@ -80,18 +83,20 @@ public class VATCalculatorActivity extends AppCompatActivity {
         percentage12.setOnClickListener(v -> {
             customVatRate.setVisibility(View.GONE);
             finalRate = 12.5;
+            percentage1.setChecked(false);
             percentage4.setChecked(false);
             percentage5.setChecked(false);
-            percentage1.setChecked(false);
+            percentage12.setChecked(true);
             other.setChecked(false);
         });
 
         other.setOnClickListener(v -> {
             customVatRate.setVisibility(View.VISIBLE);
+            percentage1.setChecked(false);
             percentage4.setChecked(false);
             percentage5.setChecked(false);
             percentage12.setChecked(false);
-            percentage1.setChecked(false);
+            other.setChecked(true);
         });
 
         addVat.setOnClickListener(v -> {
@@ -123,6 +128,8 @@ public class VATCalculatorActivity extends AppCompatActivity {
                 Toast.makeText(VATCalculatorActivity.this, "Please Enter valid values", Toast.LENGTH_SHORT).show();
             } else if (TextUtils.isEmpty(initialAmount.getText().toString())) {
                 Toast.makeText(VATCalculatorActivity.this, "Please Enter initial amount", Toast.LENGTH_SHORT).show();
+            } else if (other.isChecked() && TextUtils.isEmpty(customVatRate.getText().toString())) {
+                Toast.makeText(VATCalculatorActivity.this, "Please Enter valid rate", Toast.LENGTH_SHORT).show();
             } else {
                 String initial = initialAmount.getText().toString();
                 String rate = customVatRate.getText().toString();
@@ -173,6 +180,7 @@ public class VATCalculatorActivity extends AppCompatActivity {
 
             tag = "AddVAT";
 
+            finalRate = 5.0;
             addVat.setBackgroundResource(R.drawable.selected);
             removeVat.setBackgroundResource(R.drawable.unselected);
 

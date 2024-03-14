@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SimpleAndCompoundActivity extends AppCompatActivity {
 
-    TextView year, date, simple, compound, startDate, endDate, siCiInterest, siCiInterestValue, principalAmount,investmentAmount;
+    TextView year, date, simple, compound, startDate, endDate, siCiInterest, siCiInterestValue, principalAmount, investmentAmount;
     EditText timeInYear, ratePerYear, principal;
     Button calculate, reset;
     LinearLayout startDateSelected, endDateSelected, linear, spinnerLinear;
@@ -84,7 +84,6 @@ public class SimpleAndCompoundActivity extends AppCompatActivity {
             date.setTextColor(Color.WHITE);
             year.setTextColor(ContextCompat.getColor(this, R.color.black));
         });
-
 
         simple.setOnClickListener(v -> {
             siCiFind = "Simple";
@@ -198,7 +197,7 @@ public class SimpleAndCompoundActivity extends AppCompatActivity {
                     double finalDepositAmount = Double.parseDouble(deposit);
                     double finalRateOfInterest = Double.parseDouble(rateOfInterest);
 
-                    double finalDays = getCountOfDays(startDateString,endDateString);
+                    double finalDays = getCountOfDays(startDateString, endDateString);
                     double years = finalDays / 365.0;
 
                     if (siCiFind.equals("Simple")) {
@@ -288,7 +287,6 @@ public class SimpleAndCompoundActivity extends AppCompatActivity {
     }
 
     // Compound Interest
-
     public static double CI(double principal, double annualInterestRate, double numberOfTimesCompoundedPerYear, int quarters) {
         double ratePerPeriod = annualInterestRate / (quarters * 100);
         double totalNumberOfPeriods = numberOfTimesCompoundedPerYear * quarters;
@@ -296,7 +294,6 @@ public class SimpleAndCompoundActivity extends AppCompatActivity {
     }
 
     private void setData() {
-
         tagFind = "Year";
         year.setBackgroundResource(R.drawable.selected_category);
         date.setBackgroundResource(R.drawable.unselected_category);
@@ -314,16 +311,40 @@ public class SimpleAndCompoundActivity extends AppCompatActivity {
     }
 
     private void showDatePickerDialog() {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int day;
+        int month;
+        int year;
+        if (TextUtils.equals(startEndDate, "Start")) {
+            if (!TextUtils.isEmpty(startDate.getText())) {
+                String[] dateParts = startDate.getText().toString().split("/");
+                day = Integer.parseInt(dateParts[0]);
+                month = Integer.parseInt(dateParts[1]) - 1;
+                year = Integer.parseInt(dateParts[2]);
+            } else {
+                Calendar calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+            }
+        } else {
+            if (!TextUtils.isEmpty(endDate.getText())) {
+                String[] dateParts = endDate.getText().toString().split("/");
+                day = Integer.parseInt(dateParts[0]);
+                month = Integer.parseInt(dateParts[1]) - 1;
+                year = Integer.parseInt(dateParts[2]);
+            } else {
+                Calendar calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+            }
+        }
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, (view, year1, monthOfYear, dayOfMonth) -> {
             selectedDate = dayOfMonth + "/" + (monthOfYear) + "/" + year1;
 
             if (TextUtils.equals(startEndDate, "Start")) {
-                boolean b = checkDates1(selectedDate,endDate.getText().toString());
+                boolean b = checkDates1(selectedDate, endDate.getText().toString());
                 if (!b) {
                     startDate.setText(selectedDate);
                 } else {
@@ -332,7 +353,7 @@ public class SimpleAndCompoundActivity extends AppCompatActivity {
                     Toast.makeText(this, "Please enter valid dates", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                boolean b = checkDates(selectedDate,startDate.getText().toString());
+                boolean b = checkDates(selectedDate, startDate.getText().toString());
                 if (!b) {
                     endDate.setText(selectedDate);
                 } else {
@@ -342,25 +363,19 @@ public class SimpleAndCompoundActivity extends AppCompatActivity {
                 }
             }
         }, year, month, day);
-
         datePickerDialog.show();
     }
 
-    public static boolean checkDates(String selectedDate, String anotherDate)    {
+    public static boolean checkDates(String selectedDate, String anotherDate) {
         boolean b = false;
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dfDate  = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dfDate = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
-            if(dfDate.parse(selectedDate).before(dfDate.parse(anotherDate)))
-            {
+            if (dfDate.parse(selectedDate).before(dfDate.parse(anotherDate))) {
                 b = true;
-            }
-            else if(dfDate.parse(selectedDate).equals(dfDate.parse(anotherDate)))
-            {
+            } else if (dfDate.parse(selectedDate).equals(dfDate.parse(anotherDate))) {
                 b = true;
-            }
-            else
-            {
+            } else {
                 b = false;
             }
         } catch (ParseException e) {
@@ -369,21 +384,16 @@ public class SimpleAndCompoundActivity extends AppCompatActivity {
         return b;
     }
 
-    public static boolean checkDates1(String selectedDate, String anotherDate)    {
+    public static boolean checkDates1(String selectedDate, String anotherDate) {
         boolean b = false;
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dfDate  = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dfDate = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
-            if(dfDate.parse(selectedDate).after(dfDate.parse(anotherDate)))
-            {
+            if (dfDate.parse(selectedDate).after(dfDate.parse(anotherDate))) {
                 b = true;
-            }
-            else if(dfDate.parse(selectedDate).equals(dfDate.parse(anotherDate)))
-            {
+            } else if (dfDate.parse(selectedDate).equals(dfDate.parse(anotherDate))) {
                 b = true;
-            }
-            else
-            {
+            } else {
                 b = false;
             }
         } catch (ParseException e) {

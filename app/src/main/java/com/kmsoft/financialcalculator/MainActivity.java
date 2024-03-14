@@ -195,49 +195,44 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
     @Override
     public void onItemClicked(DrawerItem drawerItem, int position) {
         mDrawerAdapter.setSelectedItemPosition(position + 1);
-
-        if (drawerItem.getName().equals("History")) {
-            addFragment(new HistoryFragment());
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else if (drawerItem.getName().equals("Share This App")) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            editor = sharedPreferences.edit();
-            editor.putInt("click", 0);
-            editor.commit();
-        } else if (drawerItem.getName().equals("Rate This App")) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            editor = sharedPreferences.edit();
-            editor.putInt("click", 0);
-            editor.commit();
-        } else if (drawerItem.getName().equals("Feedback")) {
-            Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.setData(Uri.parse("mailto:"));
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"testkmsoft@gmail.com"});
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback about application");
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            }
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            editor = sharedPreferences.edit();
-            editor.putInt("click", 0);
-            editor.commit();
-        } else if (drawerItem.getName().equals("Privacy Policy")) {
-            addFragment(new PrivacyPolicyFragment());
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            editor = sharedPreferences.edit();
-            editor.putInt("click", 1);
-            editor.commit();
-        } else if (drawerItem.getName().equals("About")) {
-            addFragment(new AboutFragment());
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            editor = sharedPreferences.edit();
-            editor.putInt("click", 2);
-            editor.commit();
-        } else if (drawerItem.getName().equals("Dark mode")) {
-            editor = sharedPreferences.edit();
-            editor.putInt("click", 3);
-            editor.commit();
+        editor = sharedPreferences.edit();
+        switch (drawerItem.getName()) {
+            case "History":
+                addFragment(new HistoryFragment());
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                editor.putInt("click", 0);
+                break;
+            case "Share This App":
+            case "Rate This App":                     
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                editor.putInt("click", 0);
+                break;
+            case "Feedback":
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:"));
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"testkmsoft@gmail.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback about application");
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                editor.putInt("click", 0);
+                break;
+            case "Privacy Policy":
+                addFragment(new PrivacyPolicyFragment());
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                editor.putInt("click", 1);
+                break;
+            case "About":
+                addFragment(new AboutFragment());
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                editor.putInt("click", 2);
+                break;
+            case "Dark mode":
+                editor.putInt("click", 3);
+                break;
         }
+        editor.commit();
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
@@ -249,8 +244,9 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
 
     @Override
     public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
         super.onBackPressed();
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.drawer_layout);
+        Fragment fragment = fragmentManager.findFragmentById(R.id.drawer_layout);
         if (fragment instanceof HistoryFragment) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -261,8 +257,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.Dra
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
-            MainActivity.this.finish();
-            System.exit(0);
+            finish();
         }
     }
 

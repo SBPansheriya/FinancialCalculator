@@ -183,6 +183,7 @@ public class FDCalculatorActivity extends AppCompatActivity {
             rateInterest.setText("");
             loanTenure.setText("");
             date.setText("");
+            selectedDate = null;
             spinner.setSelection(0);
             linear.setVisibility(View.GONE);
         });
@@ -196,15 +197,26 @@ public class FDCalculatorActivity extends AppCompatActivity {
     }
 
     private void showDatePickerDialog() {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int day;
+        int month;
+        int year;
+
+        if (selectedDate != null) {
+            String[] dateParts = selectedDate.split("/");
+            day = Integer.parseInt(dateParts[0]);
+            month = Integer.parseInt(dateParts[1]) - 1;
+            year = Integer.parseInt(dateParts[2]);
+        } else {
+            Calendar calendar = Calendar.getInstance();
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+        }
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, (view, year1, monthOfYear, dayOfMonth) -> {
             selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1;
             date.setText(selectedDate);
-        }, year, month + 1, day);
+        }, year, month, day);
         datePickerDialog.show();
     }
 

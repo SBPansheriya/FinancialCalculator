@@ -201,6 +201,8 @@ public class LumpSumCalculatorActivity extends AppCompatActivity {
             year.setTextColor(ContextCompat.getColor(LumpSumCalculatorActivity.this, R.color.dark_blue));
             month.setTextColor(ContextCompat.getColor(LumpSumCalculatorActivity.this, R.color.history_color));
 
+            selectedDate = null;
+
             linear.setVisibility(View.GONE);
             title6.setVisibility(View.GONE);
         });
@@ -364,17 +366,28 @@ public class LumpSumCalculatorActivity extends AppCompatActivity {
     }
 
     private void showDatePickerDialog() {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int day;
+        int month;
+        int year;
+
+        if (selectedDate != null) {
+            String[] dateParts = selectedDate.split("/");
+            day = Integer.parseInt(dateParts[0]);
+            month = Integer.parseInt(dateParts[1]) - 1;
+            year = Integer.parseInt(dateParts[2]);
+        } else {
+            Calendar calendar = Calendar.getInstance();
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+        }
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, (view, year1, monthOfYear, dayOfMonth) -> {
             selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1;
 
             date.setText(selectedDate);
 
-        }, year, month + 1, day);
+        }, year, month, day);
 
         datePickerDialog.show();
     }
